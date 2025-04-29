@@ -50,13 +50,13 @@
 </div>
 
 <div class="section fade-in section-box">
-  <h2 id="latest">🎵 最新Cover</h2>
-  <div id="videoList"></div>
+  <h2 id="about">🌸 關於我</h2>
+  <p id="bio">我是紗茉花（Samahana），一位熱愛動漫歌曲的Vsinger，擅長日英中三語演唱，自彈自唱、創作改編與分享音樂的力量。沙漠中的花，也能綻放屬於自己的光。</p>
 </div>
 
 <div class="section fade-in section-box">
-  <h2 id="about">🌸 關於我</h2>
-  <p id="bio">我是紗茉花（Samahana），一位熱愛動漫歌曲的Vsinger，擅長日英中三語演唱，自彈自唱、創作改編與分享音樂的力量。沙漠中的花，也能綻放屬於自己的光。</p>
+  <h2 id="latest">🎵 最新Cover</h2>
+  <div id="videoList"></div>
 </div>
 
   <div class="section fade-in section-box">
@@ -89,6 +89,37 @@ for (let i = 0; i < 100; i++) {
   starContainer.appendChild(star);
 }
 </script>
+
+<script>
+  // 載入 YouTube 最新三支影片
+  const videoContainer = document.getElementById('videoList');
+  fetch('/api/youtube')
+    .then(response => response.json())
+    .then(data => {
+      if (!data.items) return;
+
+      videoContainer.innerHTML = ''; // 清空
+      data.items.forEach(item => {
+        const videoId = item.id.videoId;
+        if (!videoId) return; // 有些回傳不是影片
+
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+        iframe.allowFullscreen = true;
+        iframe.style.width = '100%';
+        iframe.style.maxWidth = '600px';
+        iframe.style.height = '340px';
+        iframe.style.borderRadius = '10px';
+        iframe.style.marginTop = '10px';
+        videoContainer.appendChild(iframe);
+      });
+    })
+    .catch(error => {
+      console.error('YouTube 載入失敗：', error);
+      videoContainer.innerHTML = '<p style="color: gray;">無法載入影片，請稍後再試。</p>';
+    });
+</script>
+
 
 <style>
   @keyframes twinkle {
