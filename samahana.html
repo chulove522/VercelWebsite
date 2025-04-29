@@ -1,0 +1,98 @@
+<div class="stars" id="stars"></div>
+<style>
+  body {
+    background-color: black;
+    color: white;
+  }
+  .section-box {
+    border: 1px solid white;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 40px auto;
+    max-width: 800px;
+  }
+</style>
+
+<!-- logo 與標題區塊 -->
+<header style="text-align: center; padding: 40px 20px 20px;">
+  <img src="./logo.png" alt="Samahana Logo" style="max-height: 300px; width: 80%; max-width: 240px;" />
+  <p id="tagline" style="text-align:center; margin-top: 10px;">沙漠中的一朵小花</p>
+  </header>
+
+<!-- 語言選擇下拉選單 -->
+<div class="language-selector" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+  <select id="langSelect" style="padding: 10px; font-size: 16px; border-radius: 6px;">
+    <option value="zh">中文</option>
+    <option value="en">English</option>
+    <option value="ja">日本語</option>
+  </select>
+</div>
+
+
+<div class="section fade-in section-box">
+  <h2 id="links">🔗 追蹤我</h2>
+  <div style="text-align: center; margin-bottom: 30px;">
+  <a href="https://www.instagram.com/yourname" target="_blank" title="Instagram" style="margin: 8px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" width="32" height="32" style="filter: invert(1);"/>
+  </a>
+  <a href="https://www.threads.net/@yourname" target="_blank" title="Threads" style="margin: 8px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/threads.svg" alt="Threads" width="32" height="32" style="filter: invert(1);"/>
+  </a>
+  <a href="https://www.youtube.com/@SamahanaTW" target="_blank" title="YouTube" style="margin: 8px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" width="32" height="32" style="filter: invert(1);"/>
+  </a>
+  <a href="https://www.twitch.tv/yourname" target="_blank" title="Twitch" style="margin: 8px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitch.svg" alt="Twitch" width="32" height="32" style="filter: invert(1);"/>
+  </a>
+  <a href="https://twitter.com/yourname" target="_blank" title="X (Twitter)" style="margin: 8px;">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" width="32" height="32" style="filter: invert(1);"/>
+  </a>
+</div>
+
+<div class="section fade-in section-box">
+  <h2 id="latest">🎵 最新Cover</h2>
+  <div id="videoList"></div>
+</div>
+
+<div class="section fade-in section-box">
+  <h2 id="about">🌸 關於我</h2>
+  <p id="bio">我是紗茉花（Samahana），一位熱愛動漫歌曲的Vsinger，擅長日英中三語演唱，自彈自唱、創作改編與分享音樂的力量。沙漠中的花，也能綻放屬於自己的光。</p>
+</div>
+
+  <div class="section fade-in section-box">
+  <h2 id="support">☕ 支持我</h2>
+  <p id="support-text">如果你喜歡我的音樂與創作，歡迎透過以下連結贊助我，讓我能持續創作更多美麗的作品：</p>
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="https://www.buymeacoffee.com/yourname" target="_blank" title="Buy Me a Coffee" style="margin: 8px; display: inline-block;">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/buymeacoffee.svg" alt="Buy Me a Coffee" width="36" height="36" style="filter: invert(1);"/>
+    </a>
+  </div>
+</div>
+
+
+
+<script>
+// 星空效果
+const starContainer = document.getElementById('stars');
+for (let i = 0; i < 100; i++) {
+  const star = document.createElement('div');
+  star.classList.add('star');
+  star.style.position = 'absolute';
+  star.style.width = '2px';
+  star.style.height = '2px';
+  star.style.background = 'white';
+  star.style.borderRadius = '50%';
+  star.style.top = `${Math.random() * 100}%`;
+  star.style.left = `${Math.random() * 100}%`;
+  star.style.animation = 'twinkle 2s infinite';
+  star.style.animationDelay = `${Math.random() * 2}s`;
+  starContainer.appendChild(star);
+}
+</script>
+
+<style>
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+</style>
