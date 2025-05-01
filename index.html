@@ -1,129 +1,190 @@
-<div class="stars" id="stars"></div>
-<style>
-  body {
-    background-color: black;
-    color: white;
-  }
-  .section-box {
-    border: 1px solid white;
-    border-radius: 12px;
-    padding: 20px;
-    margin: 40px auto;
-    max-width: 800px;
-  }
-</style>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Samahana</title>
+  <style>
+    body {
+      margin: 0;
+      color: white;
+      font-family: sans-serif;
+    }
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+    .section {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .section-box {
+      background-color: black;
+      border: 1px solid white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 40px;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .language-selector {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    .language-selector select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: none;
+      background: white;
+      color: black;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    iframe {
+      width: 100%;
+      max-width: 600px;
+      height: 340px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
 
-<!-- logo 與標題區塊 -->
-<header style="text-align: center; padding: 40px 20px 20px;">
-  <img src="./logo.png" alt="Samahana Logo" style="max-height: 300px; width: 80%; max-width: 240px;" />
-  <p id="tagline" style="text-align:center; margin-top: 10px;">沙漠中的一朵小花</p>
+  <!-- logo 與標題區塊 -->
+  <header style="text-align: center; padding: 40px 20px 20px;">
+    <img src="./logo.png" alt="Samahana Logo" style="max-height: 300px; width: 80%; max-width: 240px;" />
+    <p id="tagline" style="text-align:center; margin-top: 10px;">沙漠中的一朵小花</p>
   </header>
 
-<!-- 語言選擇下拉選單 -->
-<div class="language-selector" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
-  <select id="langSelect" style="padding: 10px; font-size: 16px; border-radius: 6px;">
-    <option value="zh">中文</option>
-    <option value="en">English</option>
-    <option value="ja">日本語</option>
-  </select>
-</div>
-
-
-<div class="section fade-in section-box">
-  <h2 id="links">🔗 追蹤我</h2>
-  <div style="text-align: center; margin-bottom: 30px;">
-  <a href="https://www.instagram.com/yourname" target="_blank" title="Instagram" style="margin: 8px;">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" width="32" height="32" style="filter: invert(1);"/>
-  </a>
-  <a href="https://www.threads.net/@yourname" target="_blank" title="Threads" style="margin: 8px;">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/threads.svg" alt="Threads" width="32" height="32" style="filter: invert(1);"/>
-  </a>
-  <a href="https://www.youtube.com/@SamahanaTW" target="_blank" title="YouTube" style="margin: 8px;">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" width="32" height="32" style="filter: invert(1);"/>
-  </a>
-  <a href="https://www.twitch.tv/yourname" target="_blank" title="Twitch" style="margin: 8px;">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitch.svg" alt="Twitch" width="32" height="32" style="filter: invert(1);"/>
-  </a>
-  <a href="https://twitter.com/yourname" target="_blank" title="X (Twitter)" style="margin: 8px;">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" width="32" height="32" style="filter: invert(1);"/>
-  </a>
-</div>
-
-<div class="section fade-in section-box">
-  <h2 id="about">🌸 關於我</h2>
-  <p id="bio">我是紗茉花（Samahana），一位熱愛動漫歌曲的Vsinger，擅長日英中三語演唱，自彈自唱、創作改編與分享音樂的力量。沙漠中的花，也能綻放屬於自己的光。</p>
-</div>
-
-<div class="section fade-in section-box">
-  <h2 id="latest">🎵 最新Cover</h2>
-  <div id="videoList"></div>
-</div>
-
-  <div class="section fade-in section-box">
-  <h2 id="support">☕ 支持我</h2>
-  <p id="support-text">如果你喜歡我的音樂與創作，歡迎透過以下連結贊助我，讓我能持續創作更多美麗的作品：</p>
-  <div style="text-align: center; margin-top: 20px;">
-    <a href="https://www.buymeacoffee.com/yourname" target="_blank" title="Buy Me a Coffee" style="margin: 8px; display: inline-block;">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/buymeacoffee.svg" alt="Buy Me a Coffee" width="36" height="36" style="filter: invert(1);"/>
-    </a>
+  <div class="language-selector">
+    <select id="langSelect">
+      <option value="zh">中文</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+    </select>
   </div>
-</div>
 
+  <div class="section fade-in section-box" id="linksSection">
+    <h2 id="links">🔗 追蹤我</h2>
+    <div style="text-align: center; margin-bottom: 30px;">
+      <a href="https://www.instagram.com/yourname" target="_blank" title="Instagram" style="margin: 8px;">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" width="32" height="32" style="filter: invert(1);"/>
+      </a>
+      <a href="https://www.threads.net/@yourname" target="_blank" title="Threads" style="margin: 8px;">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/threads.svg" alt="Threads" width="32" height="32" style="filter: invert(1);"/>
+      </a>
+      <a href="https://www.youtube.com/@SamahanaTW" target="_blank" title="YouTube" style="margin: 8px;">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" width="32" height="32" style="filter: invert(1);"/>
+      </a>
+      <a href="https://www.twitch.tv/yourname" target="_blank" title="Twitch" style="margin: 8px;">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitch.svg" alt="Twitch" width="32" height="32" style="filter: invert(1);"/>
+      </a>
+      <a href="https://twitter.com/yourname" target="_blank" title="X (Twitter)" style="margin: 8px;">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" width="32" height="32" style="filter: invert(1);"/>
+      </a>
+      <a href="https://www.tiktok.com/@yourname" target="_blank" title="TikTok" style="margin: 8px;">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok" width="32" height="32" style="filter: invert(1);"/>
+      </a>
+    </div>
+  </div>
 
+  <div class="section fade-in section-box" id="aboutSection">
+    <h2 id="about">🌸 關於我</h2>
+    <p id="bio">我是紗茉花（Samahana），一位熱愛動漫歌曲的Vsinger，擅長日英中三語演唱，吉他自彈自唱、電吉他Cover、創作改編與分享音樂。沙漠中的花，我希望帶給大家堅強的力量。<br><br>「紗茉花」一名在中文中有沙漠花的諧音，象徵著如同沙漠中綻放的花朵，堅強而美麗。紗代表輕柔如紗的聲線，茉為茉莉，Hana在日文中為花。日文對應寫作「紗茉花（Samahana）」。<br><br>大家也可以叫我 hana、茉花、小花！<br><br>未來將以 Vtype 線上直播與街頭演出形式活動。我的 Vtype 將以沙漠花為主題，設計為米金色、紅色與黑色系的 3D Vtuber，目前形象尚未公開，敬請期待！<br><br>此外，我正在開發一款為直播主與 Vtuber 設計的提詞工具，支援多國語言字幕、KTV 填詞、滑入、漸變等動畫效果，讓直播與剪輯更有效率。預計兩個月內推出，免費版將提供基本功能，付費版會有進階動畫與樣式選擇，歡迎支持！</p>
+  </div>
 
-<script>
-// 星空效果
-const starContainer = document.getElementById('stars');
-for (let i = 0; i < 100; i++) {
-  const star = document.createElement('div');
-  star.classList.add('star');
-  star.style.position = 'absolute';
-  star.style.width = '2px';
-  star.style.height = '2px';
-  star.style.background = 'white';
-  star.style.borderRadius = '50%';
-  star.style.top = `${Math.random() * 100}%`;
-  star.style.left = `${Math.random() * 100}%`;
-  star.style.animation = 'twinkle 2s infinite';
-  star.style.animationDelay = `${Math.random() * 2}s`;
-  starContainer.appendChild(star);
-}
-</script>
+  <div class="section fade-in section-box" id="latestCoverSection">
+    <h2 id="latest">🎵 最新影片</h2>
+    <div id="videoList"></div>
+  </div>
 
-<script>
-  // 載入 YouTube 最新三支影片
-  const videoContainer = document.getElementById('videoList');
-  fetch('/api/youtube')
-    .then(response => response.json())
-    .then(data => {
-      if (!data.items) return;
+  <div class="section fade-in section-box" id="supportSection">
+    <h2 id="support">☕ 支持我</h2>
+    <p id="support-text">如果你喜歡我的音樂與創作，歡迎透過以下連結贊助我，讓我能持續創作更多美麗的作品：</p>
+  </div>
 
-      videoContainer.innerHTML = ''; // 清空
-      data.items.forEach(item => {
-        const videoId = item.id.videoId;
-        if (!videoId) return; // 有些回傳不是影片
+  <div id="backToTop">↑ 回到頂部</div>
 
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://www.youtube.com/embed/${videoId}`;
-        iframe.allowFullscreen = true;
-        iframe.style.width = '100%';
-        iframe.style.maxWidth = '600px';
-        iframe.style.height = '340px';
-        iframe.style.borderRadius = '10px';
-        iframe.style.marginTop = '10px';
-        videoContainer.appendChild(iframe);
-      });
-    })
-    .catch(error => {
-      console.error('YouTube 載入失敗：', error);
-      videoContainer.innerHTML = '<p style="color: gray;">無法載入影片，請稍後再試。</p>';
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const starContainer = document.getElementById('stars');
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = `${Math.random() * window.innerHeight}px`;
+        star.style.left = `${Math.random() * window.innerWidth}px`;
+        star.style.animationDelay = `${Math.random() * 2}s`;
+        starContainer.appendChild(star);
+      }
     });
-</script>
+  </script>
 
-
-<style>
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.2; }
-    50% { opacity: 1; }
-  }
-</style>
+  <style>
+    html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: transparent;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: -2;
+}
+  </style>
+</body>
+</html>
