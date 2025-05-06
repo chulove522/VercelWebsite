@@ -271,7 +271,42 @@ If you’d like to know more about me, please follow me on social media and don�
         document.getElementById('backToTop').innerHTML = t.backToTop;
       });
     });
-  </script>  
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const videoContainer = document.getElementById('videoList');
+      fetch('/api/youtube')
+        .then(response => response.json())
+        .then(data => {
+          if (!data.items || data.items.length === 0) {
+            videoContainer.innerHTML = '<p style="color: gray;">尚未取得影片內容。</p>';
+            return;
+          }
+  
+          videoContainer.innerHTML = '';
+          data.items.forEach(item => {
+            const videoId = item.id.videoId || (item.id && item.id.videoId);
+            if (!videoId) return;
+  
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}`;
+            iframe.allowFullscreen = true;
+            iframe.frameBorder = 0;
+            iframe.style.width = '100%';
+            iframe.style.maxWidth = '600px';
+            iframe.style.height = '340px';
+            iframe.style.borderRadius = '10px';
+            iframe.style.marginTop = '10px';
+            videoContainer.appendChild(iframe);
+          });
+        })
+        .catch(error => {
+          console.error('YouTube 載入失敗：', error);
+          videoContainer.innerHTML = '<p style="color: gray;">無法載入影片，請稍後再試。</p>';
+        });
+    });
+  </script>
+  
 
   <style>
     html, body {
